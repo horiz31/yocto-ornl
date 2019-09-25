@@ -68,3 +68,22 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	networkmanager \
 	v4l-utils \
 "
+
+mount_readonly () {
+    cat >> ${IMAGE_ROOTFS}/etc/fstab.modif <<EOF
+
+# ORNL's custom partitioning layout
+
+/dev/root            /                    auto       defaults              1  1
+tmpfs                /var/local        	  tmpfs      defaults              0  0
+tmpfs		         /var/log		      tmpfs      defaults              0  0
+
+# uncomment this if your device has a SD/MMC/Transflash slot
+#/dev/mmcblk0p1      /media/card          auto       defaults,sync,noauto  0  0
+
+EOF
+
+	mv ${IMAGE_ROOTFS}/etc/fstab.modif ${IMAGE_ROOTFS}/etc/fstab
+} 
+
+ROOTFS_POSTPROCESS_COMMAND += "mount_readonly; "
