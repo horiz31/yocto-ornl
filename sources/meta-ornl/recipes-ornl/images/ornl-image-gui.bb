@@ -74,7 +74,9 @@ mount_readonly () {
 
 # ORNL's custom partitioning layout
 
-/dev/root            /                    auto       defaults              1  1
+/dev/root            /                    auto       defaults,ro,noatime,nodiratime             1  1
+tmpfs                /run                 tmpfs      mode=0755,nodev,nosuid,strictatime 0  0
+tmpfs                /var/volatile        tmpfs      defaults              0  0
 tmpfs                /var/local        	  tmpfs      defaults              0  0
 tmpfs		         /var/log		      tmpfs      defaults              0  0
 
