@@ -10,7 +10,7 @@ DEPENDS = "gstreamer1.0 gstreamer1.0-plugins-base"
 
 SRCBRANCH ?= "master"
 SRCREV = "c8940cd434b376a1343cc9ddf1428bfec3d225ee"
-SRC_URI = "git://github.com/RidgeRun/gst-interpipe.git;protocol=https;branch=${SRCBRANCH}"
+SRC_URI = "git://github.com/RidgeRun/gst-interpipe.git;branch=${SRCBRANCH}"
 
 S = "${WORKDIR}/git"
 

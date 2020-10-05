@@ -11,7 +11,7 @@ DEPENDS = "libsoup-2.4 gstreamer1.0 gstreamer1.0-plugins-base gstreamer1.0-plugi
 PV = "v0.11.0"
 SRCBRANCH ?= "master"
 SRCREV = "81b48da1c4dc3c1de3167af1c32838a96006edf3"
-SRC_URI = "git://github.com/RidgeRun/gstd-1.x.git;protocol=https;branch=${SRCBRANCH} \
+SRC_URI = "git://github.com/RidgeRun/gstd-1.x.git;branch=${SRCBRANCH} \
 	   file://0001-gstd-yocto-compatibility.patch"
 
 S = "${WORKDIR}/git"
