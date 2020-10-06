@@ -9,6 +9,7 @@ DATE := $(shell date +%Y-%m-%d_%H%M)
 ARCHIVE := /opt
 .EXPORT_ALL_VARIABLES:
 
+DEV=
 DOT_GZ=.gz
 EULA=1	# https://patchwork.openembedded.org/patch/100815/
 LOGDIR=$(HOME)/log
@@ -218,11 +219,17 @@ locale:
 mrproper: clean toaster-stop
 	-rm -rf $(YOCTO_DIR)
 
+sd: sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/var-create-yocto-sdcard.sh $(YOCTO_DIR)/$(YOCTO_ENV)/tmp/deploy/images/$(MACHINE)/$(YOCTO_CMD)
+	@if ! [ -z "$(DEV)" ] ; then \
+		$(SUDO) MACHINE=$(MACHINE) sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/var-create-yocto-sdcard.sh -a -r $(YOCTO_DIR)/$(YOCTO_ENV)/tmp/deploy/images/$(MACHINE)/$(YOCTO_CMD) $(DEV) \
+	fi
+
 see:
 	@echo "CPUS=$(CPUS)"
 	@echo "SUDO=$(SUDO)"
 	@echo "YOCTO_DIR=$(YOCTO_DIR)"
 	@echo "ARCHIVE-TO=$(ARCHIVE)/$(PROJECT)-$(DATE)"
+	@echo "DEV=$(DEV)"
 	@echo -n "KERNEL=$(YOCTO_DIR)/$(YOCTO_ENV)/tmp/work-shared/$(MACHINE)/kernel-source: "
 	@( cd $(YOCTO_DIR)/$(YOCTO_ENV)/$(KERNEL_GIT) && commit=$$(git log | head -1 | tr -s ' ' | cut -f2 | tr -s ' ' | cut -f2 -d' ') ; echo $$commit ) 
 	-@echo "*** local.conf ***" && diff build/conf/local.conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/local.conf
