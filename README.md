@@ -166,21 +166,18 @@ sudo bmaptool copy ornl-image-gui-var-som-mx6-ornl.wic /dev/sdX --nobmap
 
 Use the var-create-yocto-sdcard.sh script that is supplied by Variscite under the meta-variscite-fslc layer.  We have a companion script that can be run from this directory, use the following command. This will **ONLY** copy the Variscite script to the new directory.  From there just follow the directions from the [Variscite Build Guide](https://variwiki.com/index.php?title=Yocto_Build_Release&release=RELEASE_SUMO_V1.2_VAR-SOM-MX6#Create_an_extended_SD_card)
 
-<pre>
-./create-sd-card.sh < Yocto_Build_Directory_Path >
-</pre>
-
 ***NOTES***
 - The Yocto Path needs to be the full path.
 
 When using the Variscite script use the -a **AND** -r options. The following command should be used : 
 
 <pre>
-sudo MACHINE=var-som-mx6-ornl sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/var-create-yocto-sdcard.sh -a -r build_ornl/tmp/deploy/images/var-som-mx6-ornl/PackageName /dev/xxx
+sudo MACHINE=var-som-mx6-ornl sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/var-create-yocto-sdcard.sh -a -r $YOCTO_DIR/build_ornl/tmp/deploy/images/var-som-mx6-ornl/$PackageName /dev/xxx
 </pre>
 
 xxx - is the device name. Example /dev/sdb
-PackageName - This is this name of the tar that is created from bitbake. Look in the tmp/images/MACHINE/ file if you are unsure.
+$PackageName - This is this name of the tar that is created from bitbake. Look in the tmp/images/MACHINE/ file if you are unsure.
+$YOCTO_DIR - This is the path to where yocto was initialized
 
 ## Flash SD To eMMC
 
