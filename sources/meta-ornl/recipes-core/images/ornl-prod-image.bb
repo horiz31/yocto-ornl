@@ -2,7 +2,7 @@
 # Released under the MIT license (see COPYING.MIT for the terms)
 DESCRIPTION = "Just the needed packages for the Ground Robotics build"
 
-IMAGE_FEATURES += "package-management ssh-server-openssh "
+IMAGE_FEATURES += " ssh-server-openssh "
 
 LICENSE = "MIT"
 
@@ -26,6 +26,6 @@ IMAGE_INSTALL_append += " \
     pkgconfig \
     gst-pylibgstc \
     gstd \
-    gst-interpipes \
+    gst-interpipe \
     ksz-initscripts \
 "
