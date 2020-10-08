@@ -64,7 +64,6 @@ IMAGE_INSTALL_append += " \
 	gps-utils \
 	libgps \
 	ntp \
-	ntpstat \
 	ntp-bin \
 	postinstall \
 	libxml2-dev \
