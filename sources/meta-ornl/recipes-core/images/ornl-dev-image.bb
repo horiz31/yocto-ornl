@@ -40,16 +40,19 @@ IMAGE_INSTALL_append += " \
 	libsodium-dev \
 	python-compiler \
 	python3 \
+	python3-dev \
 	python3-lxml \
 	python3-pip \
 	python3-protobuf \
 	python3-requests \
 	python3-pexpect \
+	python3-pynmea2 \
 	python3-pyserial \
 	python3-pytz \
 	python3-urllib3 \
 	strace \
 	screen \
+	sudo \
 	systemd-analyze \
 	minicom \
 	openssl \
@@ -58,9 +61,11 @@ IMAGE_INSTALL_append += " \
 	v4l-utils \
 	dtc \
 	gpsd \
+	gpsd-clients \
 	gps-utils \
 	libgps \
 	ntp \
+	ntpstat \
 	ntp-bin \
 	postinstall \
 	libxml2-dev \
