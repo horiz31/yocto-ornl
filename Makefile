@@ -37,7 +37,7 @@ TOASTER_PORT := 8000
 YOCTO_DIR := $(HOME)/ornl-dart-yocto
 YOCTO_DISTRO=fslc-framebuffer
 YOCTO_ENV=build_ornl
-YOCTO_IMG=var-prod-update-full-image
+YOCTO_IMG=var-dev-update-full-image
 YOCTO_CMD := $(YOCTO_IMG)
 
 # Kernel rebuilding; paths relative to $(YOCTO_DIR)/$(YOCTO_ENV)
