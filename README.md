@@ -200,27 +200,49 @@ Then, open a browser to http://localhost:8000 to get the UI.
 
 Use the var-create-yocto-sdcard.sh script that is supplied by Variscite under the meta-variscite-fslc layer.  We have a companion script that can be run from this directory, use the following command. This will **ONLY** copy the Variscite script to the new directory.  From there just follow the directions from the [Variscite Build Guide](https://variwiki.com/index.php?title=Yocto_Build_Release&release=RELEASE_SUMO_V1.2_VAR-SOM-MX6#Create_an_extended_SD_card)
 
-***NOTES***
+**NOTES**
 - The Yocto Path needs to be the full path.
 
 When using the Variscite script use the -a **AND** -r options. The following command should be used : 
 
 <pre>
-sudo MACHINE=var-som-mx6-ornl sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/var-create-yocto-sdcard.sh -a -r $YOCTO_DIR/$YOCTO_ENV/tmp/deploy/images/var-som-mx6-ornl/$YOCTO_IMG-$MACHINE /dev/xxx
+sudo MACHINE=var-som-mx6-ornl $YOCTO_DIR/sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/var-create-yocto-sdcard.sh -a -r $YOCTO_DIR/$YOCTO_ENV/tmp/deploy/images/$MACHINE/$YOCTO_IMG-$MACHINE /dev/xxx
 </pre>
-
-xxx - is the device name. Example /dev/sdb
-$YOCTO_IMG - The name of the full image you used in the `bitbake` command.  I.e. `var-dev-update-full-image`
-$MACHINE - This is always `var-som-mx6-ornl` *(until its not, but thats another story...)*
-$YOCTO_DIR - This is the path to where yocto was initialized
-$YOCTO_ENV - This is the name of the build folder in the path where yocto was initialized.  Typically `build_ornl` unless you took pains to change it...
+Where:
+- /dev/xxx: The device that is the entire micro SD card. Example /dev/sdb
+- $YOCTO_IMG: The name of the full image you used in the `bitbake` command.  I.e. `var-dev-update-full-image`
+- $MACHINE: This is always `var-som-mx6-ornl` *(until its not, but thats another story...)*
+- $YOCTO_DIR: This is the path to where the Yocto system was initialized
+- $YOCTO_ENV: This is the name of the build folder in the path where Yocto was initialized. *Typically `build_ornl` unless you took pains to change it...*
 
 ## Flash SD To eMMC
 
 This **ONLY** works if ***Option 2*** was chosen from the Create SD Card section.  Once the board has booted up run the install_yocto.sh script located in /usr/bin and follow the instructions.
 This will be something like:
 
+**NOTES**
+- Please set the date on the device if it does not have the correct date+time
+
+### To check and set the date
+
+<pre>
+date
+date -s "yyyy-mm-dd hh:mm"
+</pre>
+
+### For one eMMC partition
+
+In this scheme, the eMMC is used in its entirety and the root filesystem expands to the entire available space.
+
 <pre>
 /usr/bin/install_yocto.sh -b dart
+</pre>
+
+### For two eMMC partitions
+
+In this scheme, the eMMC is split into two rootfs partitions and the bootloader boots into one of them.  During a swupdate, the unused partition is written to and the next reboot will boot that and make it the active.  This allows one known good configuration to always be available.
+
+<pre>
+/usr/bin/install_yocto.sh -b dart -u
 </pre>
 
