@@ -63,4 +63,17 @@ IMAGE_INSTALL_append += " \
 	ntp \
 	ntp-bin \
 	postinstall \
+	libxml2-dev \
+	libxslt-dev \
+	python3-netifaces \
+	python3-pyyaml \
+	webcam-tools \
+	bind-utils \
+	libtool \
+	pkgconfig \
+	gst-pylibgstc \
+	gstd \
+	gst-interpipe \
+	ksz-initscripts \
+
 "
