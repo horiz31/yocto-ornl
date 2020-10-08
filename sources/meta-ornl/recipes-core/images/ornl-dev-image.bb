@@ -40,16 +40,19 @@ IMAGE_INSTALL_append += " \
 	libsodium-dev \
 	python-compiler \
 	python3 \
+	python3-dev \
 	python3-lxml \
 	python3-pip \
 	python3-protobuf \
 	python3-requests \
 	python3-pexpect \
+	python3-pynmea2 \
 	python3-pyserial \
 	python3-pytz \
 	python3-urllib3 \
 	strace \
 	screen \
+	sudo \
 	systemd-analyze \
 	minicom \
 	openssl \
@@ -63,4 +66,16 @@ IMAGE_INSTALL_append += " \
 	ntp \
 	ntp-bin \
 	postinstall \
+	libxml2-dev \
+	libxslt-dev \
+	python3-netifaces \
+	python3-pyyaml \
+	webcam-tools \
+	bind-utils \
+	libtool \
+	pkgconfig \
+	gst-pylibgstc \
+	gstd \
+	gst-interpipe \
+	ksz-initscripts \
 "
