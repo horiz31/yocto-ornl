@@ -75,5 +75,5 @@ IMAGE_INSTALL_append += " \
 	gstd \
 	gst-interpipe \
 	ksz-initscripts \
-
 "
+
