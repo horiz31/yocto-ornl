@@ -61,7 +61,6 @@ IMAGE_INSTALL_append += " \
 	v4l-utils \
 	dtc \
 	gpsd \
-	gpsd-clients \
 	gps-utils \
 	libgps \
 	ntp \
