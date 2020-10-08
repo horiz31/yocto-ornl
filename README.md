@@ -246,3 +246,11 @@ In this scheme, the eMMC is split into two rootfs partitions and the bootloader 
 /usr/bin/install_yocto.sh -b dart -u
 </pre>
 
+## OS Updates
+
+To build images that can be used to update a running system, use the `*-swu` images.  These accompany the `*-update-full-image`.  For example, to build an update to the `var-dev-update-full-image`, build it first, then build `var-dev-image-swu`.  The artifacts produced will be in `$YOCTO_DEV/$YOCTO_ENV/tmp/deploy/images/$MACHINE` and will be named `var-dev-image-swu-$MACHINE-YYYYMMDDHHMMSS.swu` with a link to the latest one built called `var-dev-image-swu-var-som-mx6-ornl.swu`
+
+### Updating a running system
+
+Arrange for these `.swu` files to be loaded onto a running system and the swupdate process will start.  If networking is available on the target system, head to port `:8080` and follow the instructions to authenticate and load the `.swu` file.
+
