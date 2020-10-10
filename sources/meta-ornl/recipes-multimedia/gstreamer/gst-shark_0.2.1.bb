@@ -14,8 +14,8 @@ SRCREV_base = "a60b3996fe3376d42334fc89014e9d6f6af62899"
 SRCREV_common = "b64f03f6090245624608beb5d2fff335e23a01c0"
 
 SRC_URI = " \
-    git://github.com/RidgeRun/gst-shark.git;branch=${SRCBRANCH};name=base \
-    git://anongit.freedesktop.org/git/gstreamer/common.git;destsuffix=git/common;name=common; \
+    git://github.com/RidgeRun/gst-shark.git;protocol=https;branch=${SRCBRANCH};name=base \
+    git://anongit.freedesktop.org/git/gstreamer/common.git;protocol=https;destsuffix=git/common;name=common; \
     "
 
 S = "${WORKDIR}/git"
