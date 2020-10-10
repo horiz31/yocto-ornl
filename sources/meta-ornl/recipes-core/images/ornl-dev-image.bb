@@ -62,12 +62,10 @@ IMAGE_INSTALL_append += " \
 	python3-dev \
 	python3-future \
 	python3-lxml \
-	python3-MAVProxy \
 	python3-netifaces \
 	python3-pexpect \
 	python3-pip \
 	python3-protobuf \
-	python3-pymavlink \
 	python3-pynmea2 \
 	python3-pyserial \
 	python3-pytz \
