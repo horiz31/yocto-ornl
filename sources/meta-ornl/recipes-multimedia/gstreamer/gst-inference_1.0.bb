@@ -10,7 +10,7 @@ DEPENDS = "gstreamer1.0 gstreamer1.0-plugins-base r2inference opencv"
 
 SRCBRANCH ?= "master"
 SRCREV = "4a11323ce74b80d05feba7a3d53a6c770de1248a"
-SRC_URI = "git://github.com/RidgeRun/gst-inference;protocol=https;branch=${SRCBRANCH}"
+SRC_URI = "git://github.com/RidgeRun/gst-inference;branch=${SRCBRANCH}"
 
 S = "${WORKDIR}/git"
 

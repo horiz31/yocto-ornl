@@ -8,7 +8,7 @@ DEPENDS = "gstreamer1.0 gstreamer1.0-plugins-base gstreamer1.0-plugins-bad"
 
 SRCBRANCH ?= "master"
 SRCREV = "939eee167c6e95ed1c2f2013246b1f0b671a378b"
-SRC_URI = "git://github.com/RidgeRun/gst-perf.git;protocol=https;branch=${SRCBRANCH}"
+SRC_URI = "git://github.com/RidgeRun/gst-perf.git;branch=${SRCBRANCH}"
 
 #S = "${WORKDIR}/gst-perf-${PV}"
 S = "${WORKDIR}/git"

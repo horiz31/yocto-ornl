@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://../COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 PV = "v0.10.0"
 SRCBRANCH ?= "master"
-SRC_URI = "git://github.com/RidgeRun/gstd-1.x.git;protocol=https;tag=${PV}"
+SRC_URI = "git://github.com/RidgeRun/gstd-1.x.git;tag=${PV}"
 
 S = "${WORKDIR}/git/libgstc"
 
