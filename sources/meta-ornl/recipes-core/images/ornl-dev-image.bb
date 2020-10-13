@@ -74,7 +74,7 @@ IMAGE_INSTALL_append += " \
 	python3-requests \
 	python3-urllib3 \
 	python3-pymavlink \
-	python3-future \
+	python3-mavproxy \
 	strace \
 	screen \
 	strace \

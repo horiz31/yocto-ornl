@@ -28,6 +28,7 @@ RDEPENDS_${PN} = " \
 	python3-pynmea2 \
 	python3-pymavlink \
 	python3-future \
+	python3-mavproxy \
     minicom \
 	openssl \
     imx-test \
