@@ -58,6 +58,7 @@ IMAGE_INSTALL_append += " \
 	packagegroup-tools-bluetooth \
 	pkgconfig \
 	postinstall \
+	python-compiler \
 	python3 \
 	python3-dev \
 	python3-future \
@@ -72,7 +73,9 @@ IMAGE_INSTALL_append += " \
 	python3-pyyaml \
 	python3-requests \
 	python3-urllib3 \
-	python-compiler \
+	python3-pymavlink \
+	python3-future \
+	strace \
 	screen \
 	strace \
 	sudo \
