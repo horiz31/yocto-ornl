@@ -20,6 +20,7 @@ IMAGE_FEATURES += " \
 
 IMAGE_INSTALL_append += " \
 	bind-utils \
+	default-eth0 \
 	dtc \
 	flex \
 	gcc \
