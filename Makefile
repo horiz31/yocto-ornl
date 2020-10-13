@@ -84,7 +84,7 @@ $(YOCTO_DIR)/$(YOCTO_ENV)/conf:
 	mkdir -p $(YOCTO_DIR)/$(YOCTO_ENV)/conf
 
 environment: $(YOCTO_DIR)/$(YOCTO_ENV)/conf
-	rm $(YOCTO_DIR)/$(YOCTO_ENV)/conf/sanity.conf
+	-rm $(YOCTO_DIR)/$(YOCTO_ENV)/conf/sanity.conf
 	cd $(YOCTO_DIR) && \
 		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
 		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
@@ -97,7 +97,7 @@ environment: $(YOCTO_DIR)/$(YOCTO_ENV)/conf
 		echo "cd $(YOCTO_DIR) && MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV)"
 
 environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf
-	rm $(YOCTO_DIR)/$(YOCTO_ENV)/conf/sanity.conf
+	-rm $(YOCTO_DIR)/$(YOCTO_ENV)/conf/sanity.conf
 	cd $(YOCTO_DIR) && \
 		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
 		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
