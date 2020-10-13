@@ -5,7 +5,7 @@ SRC_URI += "\
 	file://swupdate.default \
 	file://favicon.png \
 	file://logo.png \
-	file://0001-examples-website-synchronize-with-web-app-sources.patch \
+	file://0001-website-horizon31-customization.patch \
 "
 
 do_install_append () {
