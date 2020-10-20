@@ -37,7 +37,6 @@ IMAGE_INSTALL_append += " \
 	libsodium \
 	libsodium-dev \
 	libtool \
-	libx265-dev \
 	libxml2-dev \
 	libxslt-dev \
 	m4 \
