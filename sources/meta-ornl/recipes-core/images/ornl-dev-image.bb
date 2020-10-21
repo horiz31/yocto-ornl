@@ -30,6 +30,7 @@ IMAGE_INSTALL_append += " \
 	gstd \
 	gst-interpipe \
 	gst-pylibgstc \
+	htop \
 	imx-test \
 	iperf3 \
 	ksz-initscripts \
