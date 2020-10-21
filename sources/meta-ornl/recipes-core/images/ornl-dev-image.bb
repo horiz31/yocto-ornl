@@ -32,6 +32,7 @@ IMAGE_INSTALL_append += " \
 	gst-pylibgstc \
 	htop \
 	imx-test \
+	iotop \
 	iperf3 \
 	ksz-initscripts \
 	libgps \
@@ -57,8 +58,10 @@ IMAGE_INSTALL_append += " \
 	packagegroup-fsl-tools-testapps \
 	packagegroup-imx-tools-audio \
 	packagegroup-tools-bluetooth \
+	perf \
 	pkgconfig \
 	postinstall \
+	powertop \
 	python-compiler \
 	python3 \
 	python3-dev \
@@ -81,7 +84,9 @@ IMAGE_INSTALL_append += " \
 	strace \
 	sudo \
 	systemd-analyze \
+	tcpdump \
 	v4l-utils \
 	webcam-tools \
+	x265 \
 "
 

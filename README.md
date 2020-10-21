@@ -217,8 +217,7 @@ Where:
 
 ## Flash SD To eMMC
 
-This **ONLY** works if ***Option 2*** was chosen from the Create SD Card section.  Once the board has booted up run the install_yocto.sh script located in /usr/bin and follow the instructions.
-This will be something like:
+Once the board has booted up run the install_yocto.sh script located in /usr/bin and follow the instructions below:
 
 **NOTES**
 - Please set the date on the device if it does not have the correct date+time
