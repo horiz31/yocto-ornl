@@ -10,16 +10,22 @@ EXTRA_USERS_PARAMS = "usermod -P root root;"
 inherit core-image distro_features_check extrausers
 
 IMAGE_FEATURES += " \
-    debug-tweaks \
-    tools-sdk \
-    splash \
-    ssh-server-openssh \
-    hwcodecs \
-    tools-debug \
+	debug-tweaks \
+	tools-sdk \
+	splash \
+	ssh-server-openssh \
+	hwcodecs \
+	tools-debug \
 "
 
 IMAGE_INSTALL_append += " \
 	bind-utils \
+	cockpit \
+	cockpit-ws \
+	cockpit-users \
+	cockpit-shell \
+	cockpit-networkmanager \
+	cockpit-systemd \
 	default-eth0 \
 	dtc \
 	flex \
@@ -30,13 +36,14 @@ IMAGE_INSTALL_append += " \
 	gstd \
 	gst-interpipe \
 	gst-pylibgstc \
+	htop \
 	imx-test \
+	iotop \
 	iperf3 \
 	ksz-initscripts \
 	libgps \
 	libsodium \
 	libsodium-dev \
-	libtool \
 	libtool \
 	libxml2-dev \
 	libxslt-dev \
@@ -48,6 +55,7 @@ IMAGE_INSTALL_append += " \
 	ntp \
 	ntp-bin \
 	openssl \
+	openssl-bin \
 	packagegroup-core-full-cmdline \
 	packagegroup-fsl-gstreamer1.0 \
 	packagegroup-fsl-gstreamer1.0-full \
@@ -57,8 +65,10 @@ IMAGE_INSTALL_append += " \
 	packagegroup-fsl-tools-testapps \
 	packagegroup-imx-tools-audio \
 	packagegroup-tools-bluetooth \
+	perf \
 	pkgconfig \
 	postinstall \
+	powertop \
 	python-compiler \
 	python3 \
 	python3-dev \
@@ -76,12 +86,15 @@ IMAGE_INSTALL_append += " \
 	python3-urllib3 \
 	python3-pymavlink \
 	python3-mavproxy \
+	python3-bottle \
 	strace \
 	screen \
 	strace \
 	sudo \
 	systemd-analyze \
+	tcpdump \
 	v4l-utils \
 	webcam-tools \
+	x265 \
 "
 
