@@ -9,7 +9,8 @@
 # =================================================================================
 ORNL_YOCTO_BRANCH="develop"
 YOCTO_DIR_LOCATION=${PWD}
-YOCTO_VERSION=sumo
+PROJECT=yocto-ornl
+YOCTO_VERSION=thud
 TARGET_MACHINE=var-som-mx6-ornl
 readonly YOCTO_DIR_NAME=ornl-dart-yocto
 
