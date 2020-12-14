@@ -12,7 +12,7 @@ YOCTO_DIR_LOCATION=${PWD}
 PROJECT=yocto-ornl
 YOCTO_VERSION=thud
 TARGET_MACHINE=var-som-mx6-ornl
-readonly YOCTO_DIR_NAME=ornl-dart-yocto
+readonly YOCTO_DIR_NAME=${PROJECT}-${YOCTO_VERSION}
 
 # =================================================================================
 # GLOBAL TERMINAL MODIFIERS
