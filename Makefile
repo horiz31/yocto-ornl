@@ -36,8 +36,7 @@ TOASTER_PORT := 8000
 # Known variations
 # FIXME: requires mod to BuildScripts/ornl-setup-yocto.sh
 YOCTO_VERSION=thud
-# FIXME: local edit to keep using existing sstate cache
-YOCTO_DIR := $(HOME)/ornl-dart-yocto
+YOCTO_DIR := $(EPHEMERAL)/$(PROJECT)-$(YOCTO_VERSION)
 YOCTO_DISTRO=fslc-framebuffer
 YOCTO_ENV=build_ornl
 YOCTO_IMG=var-dev-update-full-image
