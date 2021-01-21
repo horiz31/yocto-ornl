@@ -20,12 +20,6 @@ IMAGE_FEATURES += " \
 
 IMAGE_INSTALL_append += " \
 	bind-utils \
-	cockpit \
-	cockpit-ws \
-	cockpit-users \
-	cockpit-shell \
-	cockpit-networkmanager \
-	cockpit-systemd \
 	default-eth0 \
 	dtc \
 	flex \
@@ -95,6 +89,6 @@ IMAGE_INSTALL_append += " \
 	tcpdump \
 	v4l-utils \
 	webcam-tools \
-	x265 \
+	x264 \
 "
 
