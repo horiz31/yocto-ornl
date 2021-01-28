@@ -93,7 +93,7 @@ $(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network: Mak
 		echo "Address=$(HOST)/$(NETMASK)" >> $@
 
 environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg
-    @$(MAKE) --no-print-directory -B $(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
+	@$(MAKE) --no-print-directory -B $(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
 	cd $(YOCTO_DIR) && \
 		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
 		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
