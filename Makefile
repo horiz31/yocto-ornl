@@ -8,6 +8,12 @@ LANG := en_US.UTF-8
 DATE := $(shell date +%Y-%m-%d_%H%M)
 ARCHIVE := /opt
 EPHEMERAL := $(HOME)
+
+# allow for generation of several static IP machines
+VEHICLE := 9
+HOST := 172.20.2.$(VEHICLE)
+NETMASK := 16
+
 .EXPORT_ALL_VARIABLES:
 
 DEV=
@@ -41,6 +47,7 @@ YOCTO_DISTRO=fslc-framebuffer
 YOCTO_ENV=build_ornl
 YOCTO_IMG=var-dev-update-full-image
 YOCTO_CMD := $(YOCTO_IMG)
+ETH0_NETWORK=$(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
 
 # Kernel rebuilding; paths relative to $(YOCTO_DIR)/$(YOCTO_ENV)
 _KERNEL_RELATIVE_PATH := tmp/work/var_som_mx6_ornl-fslc-linux-gnueabi/linux-variscite/4.9.88-r0
@@ -50,8 +57,8 @@ KERNEL_IMAGE=tmp/deploy/images/$(MACHINE)/uImage
 KERNEL_DTS=tmp/deploy/images/$(MACHINE)
 KERNEL_TEMP=$(_KERNEL_RELATIVE_PATH)/temp
 
-.PHONY: all archive build clean dependencies docker-deploy docker-image environment environment-update
-.PHONY: id kernel kernel-config kernel-pull locale mrproper see
+.PHONY: all archive build clean dependencies docker-deploy docker-image environment-update
+.PHONY: id kernel kernel-config kernel-pull locale mrproper see swu
 .PHONY: toaster toaster-stop
 
 default: see
@@ -75,20 +82,18 @@ $(YOCTO_DIR)/setup-environment: $(REPO) $(YOCTO_DIR)
 $(YOCTO_DIR)/$(YOCTO_ENV)/conf:
 	mkdir -p $(YOCTO_DIR)/$(YOCTO_ENV)/conf
 
-environment: $(YOCTO_DIR)/setup-environment $(YOCTO_DIR)/$(YOCTO_ENV)/conf
-	@echo "$(YOCTO_DIR)/sources/poky/bitbake/bin/../../meta-poky/conf" > $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg
-	cd $(YOCTO_DIR) && \
-		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
-		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
-		MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV) && \
-		cp $(CURDIR)/build/conf/local.conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/ && \
-		cp $(CURDIR)/build/conf/bblayers.conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/ && \
-		cp $(CURDIR)/BuildScripts/mx6_install_yocto_emmc.sh $(YOCTO_DIR)/sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/variscite_scripts/ && \
-		echo "*** ENVIRONMENT SETUP ***" && \
-		echo "Please execute the following in your shell before giving bitbake commands:" && \
-		echo "cd $(YOCTO_DIR) && MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV)"
+$(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg: $(YOCTO_DIR)/$(YOCTO_ENV)/conf
+	@echo "$(YOCTO_DIR)/sources/poky/bitbake/bin/../../meta-poky/conf" > $@
 
-environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf
+$(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network: Makefile
+	@echo "[Match]" > $@ && \
+		echo "Name=eth0" >> $@ && \
+		echo "" >> $@ && \
+		echo "[Network]" >> $@ && \
+		echo "Address=$(HOST)/$(NETMASK)" >> $@
+
+environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg
+    @$(MAKE) --no-print-directory -B $(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
 	cd $(YOCTO_DIR) && \
 		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
 		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
@@ -106,7 +111,7 @@ sd.img$(DOT_GZ): $(YOCTO_DIR)/$(YOCTO_ENV)/tmp/deploy/images/$(MACHINE)/$(YOCTO_
 
 all:
 	@$(MAKE) --no-print-directory -B dependencies
-	@$(MAKE) --no-print-directory -B environment
+	@$(MAKE) --no-print-directory -B environment-update
 	@$(MAKE) --no-print-directory -B toaster
 	@$(MAKE) --no-print-directory -B build
 	@$(MAKE) --no-print-directory -B YOCTO_IMG=var-dev-image-swu build
@@ -229,6 +234,12 @@ see:
 	@echo "**********************"
 	@echo "Use: \"make toaster\" to install it so it can track the build (port $(TOASTER_PORT))"
 	@echo "Use: \"make all\" to perform this build"
+
+swu:
+	@$(MAKE) --no-print-directory -B HOST=$(HOST) NETMASK=$(NETMASK) environment-update
+	@$(MAKE) --no-print-directory -B YOCTO_IMG=var-dev-update-full-image build
+	@$(MAKE) --no-print-directory -B YOCTO_IMG=var-dev-image-swu build
+	@$(MAKE) --no-print-directory -B archive
 
 toaster: $(YOCTO_DIR)/setup-environment
 	# https://www.yoctoproject.org/docs/latest/toaster-manual/toaster-manual.html#toaster-manual-start
