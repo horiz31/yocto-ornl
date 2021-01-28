@@ -2,4 +2,4 @@
 Name=eth0
 
 [Network]
-Address=172.20.2.8/16
+Address=10.223.0.1/16
