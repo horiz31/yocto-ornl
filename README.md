@@ -17,6 +17,39 @@ to create the recover SD card with.  The files will be in the folder:
 
 With the time based on when the `make archive` command is called.
 
+## Quick Fully Automatic Method
+
+This option takes advantage of even more Makefile automation.  If you have already
+done the fully automatic method above **(at least the `make dependencies` part)**,
+then you can use the following steps to build images with the desired IP address
+for the `eth0` port that will be needed for future software updates.
+
+<pre>
+make VEHICLE=9 swu
+</pre>
+
+The above will build an SD card image as well as a .swu update file and archive
+them into a folder that can be taken to another machine or used to program a
+micro SD card as in the [flash sd to emmc](#flash-sd-to-emmc) section below.
+
+The files will be stored in `/opt/yocto-ornl-yyyy-mm-dd_hhmm` **(or wherever the `ARCHIVE` variable points to)**.
+Important environment variables are:
+
+  * `ARCHIVE := /opt` - controls the folder where the output files are written
+  * `EPHEMERAL := $(HOME)` - controls the folder where the yocto builds are made
+  * `VEHICLE := 1` - controls which sysid the target pixc4 is going to be built for
+  * `HOST := 172.20.2.$(VEHICLE)` - controls the eth0 address of the processor
+  * `NETMASK := 16` - controls the netmask to be used.
+
+These can be set in the make command, for example:
+
+<pre>
+make ARCHIVE=/tmp VEHICLE=10 HOST=192.168.1.10 NETMASK=24 smu
+</pre>
+
+Would build a micro SD/.swu full os image for a vehicle that is expected to be
+sysid 10, and whose eth0 port will be defined as 192.168.1.10/24.
+
 ## Manual Step-by-Step Method
 
 This method describes the various steps needed in all the gory details.  These instructions
