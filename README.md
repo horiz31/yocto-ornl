@@ -240,6 +240,23 @@ Where:
 
 ## Flash SD To eMMC
 
+### Boot up the board
+
+Boot up the board with the micro SD card that was prepared above.  If your pixc4 system has not been flashed before, you will experience the following 90sec delay:
+```
+```
+
+Then, the system will go into 'emergency mode':
+```
+You are in emergency mode. After logging in, type "journalctl -xb" to view
+system logs, "systemctl reboot" to reboot, "systemctl default" or "exit"
+to boot into default mode.
+Give root password for maintenance
+(or press Control-D to continue):
+```
+
+**Don't panic**.  Go ahead and give the root password for the image and you will get a shell prompt.
+
 Once the board has booted up run the install_yocto.sh script located in /usr/bin and follow the instructions below:
 
 **NOTES**
@@ -267,6 +284,18 @@ In this scheme, the eMMC is split into two rootfs partitions and the bootloader 
 <pre>
 /usr/bin/install_yocto.sh -b dart -u
 </pre>
+
+You should see the following:
+```
+*** Variscite MX6 Yocto eMMC/NAND Recovery ***
+
+Carrier board: DART-MX6
+Creating two rootfs partitions
+<<< bunch of stuff about partitions >>>
+Setting U-Boot enviroment variables
+
+Yocto installed successfully
+```
 
 ## OS Updates
 
