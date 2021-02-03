@@ -60,6 +60,7 @@ IMAGE_INSTALL_append += " \
 	packagegroup-fsl-tools-testapps \
 	packagegroup-imx-tools-audio \
 	packagegroup-tools-bluetooth \
+	cockpit-packagegroup \
 	perf \
 	pkgconfig \
 	postinstall \

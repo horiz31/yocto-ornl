@@ -8,8 +8,5 @@ inherit packagegroup
 RDEPENDS_${PN} = " \    
     cockpit \
 	cockpit-ws \
-	cockpit-users \
 	cockpit-shell \
-	cockpit-networkmanager \
-	cockpit-systemd \
 "
