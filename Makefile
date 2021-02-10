@@ -35,7 +35,7 @@ TOASTER_PORT := 8000
 
 # Known variations
 # FIXME: requires mod to BuildScripts/ornl-setup-yocto.sh
-YOCTO_VERSION=thud
+YOCTO_VERSION=sumo
 YOCTO_DIR := $(EPHEMERAL)/$(PROJECT)-$(YOCTO_VERSION)
 YOCTO_DISTRO=fslc-framebuffer
 YOCTO_ENV=build_ornl
@@ -129,7 +129,7 @@ archive:
 	@echo "$(SUDO) MACHINE=$(MACHINE) $(YOCTO_ENV)/sources/meta-variscite-fslc/scripts/var-create-yocto-sdcard.sh -a -r $(YOCTO_ENV)/tmp/deploy/images/$(MACHINE)/$(YOCTO_CMD)-$(MACHINE) \$${DEV}" >> $(ARCHIVE)/$(PROJECT)-$(DATE)/readme.txt
 	@if [ -e $(ARCHIVE)/$(PROJECT)-$(DATE)/var-dev-image-swu-$(MACHINE).swu ] ; then echo "# load var-dev-image-swu-$(MACHINE).swu to port :8080" >> $(ARCHIVE)/$(PROJECT)-$(DATE)/readme.txt ; fi
 
-build: $(YOCTO_DIR)/setup-environment build/conf/local.conf build/conf/bblayers.conf sources/meta-ornl
+build: environment
 	cd $(YOCTO_DIR) && \
 		MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV) && \
 		cd $(YOCTO_DIR)/$(YOCTO_ENV) && \
@@ -144,6 +144,7 @@ dependencies:
 	$(SUDO) apt-get update
 	$(SUDO) apt-get install -y $(PKGDEPS1)
 	$(SUDO) apt-get install -y $(PKGDEPS2)
+	$(MAKE) environment-update
 
 Dockerfile: Makefile
 	@echo "FROM ubuntu:16.04" > $@
