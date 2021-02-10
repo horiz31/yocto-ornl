@@ -162,6 +162,7 @@ dependencies:
 	$(SUDO) apt-get update
 	$(SUDO) apt-get install -y $(PKGDEPS1)
 	$(SUDO) apt-get install -y $(PKGDEPS2)
+	$(MAKE) environment
 
 Dockerfile: Makefile
 	@echo "FROM ubuntu:16.04" > $@
