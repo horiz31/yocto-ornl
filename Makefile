@@ -57,7 +57,7 @@ KERNEL_IMAGE=tmp/deploy/images/$(MACHINE)/uImage
 KERNEL_DTS=tmp/deploy/images/$(MACHINE)
 KERNEL_TEMP=$(_KERNEL_RELATIVE_PATH)/temp
 
-.PHONY: all archive build clean dependencies docker-deploy docker-image environment-update
+.PHONY: all archive build clean dependencies docker-deploy docker-image environment environment-update
 .PHONY: id kernel kernel-config kernel-pull locale mrproper see swu
 .PHONY: toaster toaster-stop
 
@@ -91,6 +91,19 @@ $(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network: Mak
 		echo "" >> $@ && \
 		echo "[Network]" >> $@ && \
 		echo "Address=$(HOST)/$(NETMASK)" >> $@
+
+environment: $(YOCTO_DIR)/setup-environment $(YOCTO_DIR)/$(YOCTO_ENV)/conf
+	@echo "$(YOCTO_DIR)/sources/poky/bitbake/bin/../../meta-poky/conf" > $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg
+	cd $(YOCTO_DIR) && \
+		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
+		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
+		MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV) && \
+		cp $(CURDIR)/build/conf/local.conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/ && \
+		cp $(CURDIR)/build/conf/bblayers.conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/ && \
+		cp $(CURDIR)/BuildScripts/mx6_install_yocto_emmc.sh $(YOCTO_DIR)/sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/variscite_scripts/ && \
+		echo "*** ENVIRONMENT SETUP ***" && \
+		echo "Please execute the following in your shell before giving bitbake commands:" && \
+		echo "cd $(YOCTO_DIR) && MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV)"
 
 environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg
 	@$(MAKE) --no-print-directory -B $(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
@@ -149,6 +162,7 @@ dependencies:
 	$(SUDO) apt-get update
 	$(SUDO) apt-get install -y $(PKGDEPS1)
 	$(SUDO) apt-get install -y $(PKGDEPS2)
+	$(MAKE) environment
 
 Dockerfile: Makefile
 	@echo "FROM ubuntu:16.04" > $@
