@@ -20,6 +20,7 @@ IMAGE_FEATURES += " \
 
 IMAGE_INSTALL_append += " \
 	bind-utils \
+	cockpit-packagegroup \
 	default-eth0 \
 	dtc \
 	flex \
@@ -91,5 +92,6 @@ IMAGE_INSTALL_append += " \
 	v4l-utils \
 	webcam-tools \
 	x264 \
+	x265 \
 "
 
