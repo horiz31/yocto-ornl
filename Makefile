@@ -47,7 +47,7 @@ YOCTO_DISTRO=fslc-framebuffer
 YOCTO_ENV=build_ornl
 YOCTO_IMG=var-dev-update-full-image
 YOCTO_CMD := $(YOCTO_IMG)
-ETH0_NETWORK=./sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
+ETH0_NETWORK=sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
 
 # Kernel rebuilding; paths relative to $(YOCTO_DIR)/$(YOCTO_ENV)
 _KERNEL_RELATIVE_PATH := tmp/work/var_som_mx6_ornl-fslc-linux-gnueabi/linux-variscite/4.9.88-r0
@@ -85,7 +85,7 @@ $(YOCTO_DIR)/$(YOCTO_ENV)/conf:
 $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg: $(YOCTO_DIR)/$(YOCTO_ENV)/conf
 	@echo "$(YOCTO_DIR)/sources/poky/bitbake/bin/../../meta-poky/conf" > $@
 
-$(ETH0_NETWORK):
+$(CURDIR)/$(ETH0_NETWORK):
 	@echo "[Match]" > $@ && \
 		echo "Name=eth0" >> $@ && \
 		echo "" >> $@ && \
@@ -106,7 +106,7 @@ environment: $(YOCTO_DIR)/setup-environment $(YOCTO_DIR)/$(YOCTO_ENV)/conf
 		echo "cd $(YOCTO_DIR) && MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV)"
 
 environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg
-	@$(MAKE) --no-print-directory -B $(ETH0_NETWORK)
+	@$(MAKE) --no-print-directory -B $(CURDIR)/$(ETH0_NETWORK)
 	cd $(YOCTO_DIR) && \
 		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
 		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
@@ -237,7 +237,7 @@ see:
 	@echo "CPUS=$(CPUS)"
 	@echo "SUDO=$(SUDO)"
 	@echo "YOCTO_DIR=$(YOCTO_DIR)"
-	-@echo -n "Building for " && grep Address $(ETH0_NETWORK)
+	-@echo -n "Building for " && grep Address $(YOCTO_DIR)/$(ETH0_NETWORK)
 	@echo "ARCHIVE-TO=$(ARCHIVE)/$(PROJECT)-$(DATE)"
 	@echo -n "KERNEL=$(YOCTO_DIR)/$(YOCTO_ENV)/tmp/work-shared/$(MACHINE)/kernel-source: "
 	@( cd $(YOCTO_DIR)/$(YOCTO_ENV)/$(KERNEL_GIT) && commit=$$(git log | head -1 | tr -s ' ' | cut -f2 | tr -s ' ' | cut -f2 -d' ') ; echo $$commit ) 
