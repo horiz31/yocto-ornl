@@ -116,7 +116,7 @@ environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf $(YOCTO_DIR)/$(YOCTO_ENV)/con
 		cp $(CURDIR)/BuildScripts/mx6_install_yocto_emmc.sh $(YOCTO_DIR)/sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/variscite_scripts/ && \
 		bitbake-layers add-layer $(YOCTO_DIR)/sources/meta-ornl && \
 		echo "*** ENVIRONMENT SETUP ***" && \
-		grep Address $(ETH0_NETWORK) && \
+		grep Address $(YOCTO_DIR)/$(ETH0_NETWORK) && \
 		echo "Please execute the following in your shell before giving bitbake commands:" && \
 		echo "cd $(YOCTO_DIR) && MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV)"
 
