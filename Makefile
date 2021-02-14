@@ -256,6 +256,7 @@ swu:
 	@$(MAKE) --no-print-directory -B YOCTO_IMG=var-dev-update-full-image build
 	@$(MAKE) --no-print-directory -B YOCTO_IMG=var-dev-image-swu build
 	@$(MAKE) --no-print-directory -B archive
+	$(CURDIR)/BuildScripts/swu-manifest.sh $(ARCHIVE)/$(PROJECT)-$(DATE)/var-dev-image-swu-$(MACHINE).swu > $(ARCHIVE)/$(PROJECT)-$(DATE)/var-dev-image-swu-$(MACHINE).manifest
 
 toaster: $(YOCTO_DIR)/setup-environment
 	# https://www.yoctoproject.org/docs/latest/toaster-manual/toaster-manual.html#toaster-manual-start
