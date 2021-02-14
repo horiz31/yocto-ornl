@@ -85,7 +85,7 @@ $(YOCTO_DIR)/$(YOCTO_ENV)/conf:
 $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg: $(YOCTO_DIR)/$(YOCTO_ENV)/conf
 	@echo "$(YOCTO_DIR)/sources/poky/bitbake/bin/../../meta-poky/conf" > $@
 
-$(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network: Makefile
+$(ETH0_NETWORK):
 	@echo "[Match]" > $@ && \
 		echo "Name=eth0" >> $@ && \
 		echo "" >> $@ && \
@@ -106,7 +106,7 @@ environment: $(YOCTO_DIR)/setup-environment $(YOCTO_DIR)/$(YOCTO_ENV)/conf
 		echo "cd $(YOCTO_DIR) && MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV)"
 
 environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf $(YOCTO_DIR)/$(YOCTO_ENV)/conf/templateconf.cfg
-	@$(MAKE) --no-print-directory -B $(YOCTO_DIR)/sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
+	@$(MAKE) --no-print-directory -B $(ETH0_NETWORK)
 	cd $(YOCTO_DIR) && \
 		rm -rf $(YOCTO_DIR)/sources/meta-ornl && \
 		cp -r $(CURDIR)/sources/meta-ornl $(YOCTO_DIR)/sources && \
@@ -116,6 +116,7 @@ environment-update: $(YOCTO_DIR)/$(YOCTO_ENV)/conf $(YOCTO_DIR)/$(YOCTO_ENV)/con
 		cp $(CURDIR)/BuildScripts/mx6_install_yocto_emmc.sh $(YOCTO_DIR)/sources/meta-variscite-fslc/scripts/var_mk_yocto_sdcard/variscite_scripts/ && \
 		bitbake-layers add-layer $(YOCTO_DIR)/sources/meta-ornl && \
 		echo "*** ENVIRONMENT SETUP ***" && \
+		grep Address $(ETH0_NETWORK) && \
 		echo "Please execute the following in your shell before giving bitbake commands:" && \
 		echo "cd $(YOCTO_DIR) && MACHINE=$(MACHINE) DISTRO=$(YOCTO_DISTRO) EULA=$(EULA) . setup-environment $(YOCTO_ENV)"
 
@@ -236,6 +237,7 @@ see:
 	@echo "CPUS=$(CPUS)"
 	@echo "SUDO=$(SUDO)"
 	@echo "YOCTO_DIR=$(YOCTO_DIR)"
+	-@echo -n "Building for " && grep Address $(ETH0_NETWORK)
 	@echo "ARCHIVE-TO=$(ARCHIVE)/$(PROJECT)-$(DATE)"
 	@echo -n "KERNEL=$(YOCTO_DIR)/$(YOCTO_ENV)/tmp/work-shared/$(MACHINE)/kernel-source: "
 	@( cd $(YOCTO_DIR)/$(YOCTO_ENV)/$(KERNEL_GIT) && commit=$$(git log | head -1 | tr -s ' ' | cut -f2 | tr -s ' ' | cut -f2 -d' ') ; echo $$commit ) 
