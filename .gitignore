@@ -1,2 +1,3 @@
 sd.img*
 Dockerfile
+sources/meta-ornl/recipes-core/default-eth0/files/eth0.network
